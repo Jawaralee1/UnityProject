@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,5 +28,9 @@ public class ProjectileController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    public float getSpeed()
+    {
+        return speed;
     }
 }
