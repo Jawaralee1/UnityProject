@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private int savedGems = 0;
     [SerializeField] int health = 100;
     public int maxHealth = 100;
+    private float time = 0f;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         {
             health = maxHealth;
         }
+        time += Time.deltaTime;
     }
     public int GetGems()
     {
@@ -61,11 +63,16 @@ public class GameManager : MonoBehaviour
             maxHealth = 100;
             health = 100;
             gems = savedGems;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene("Start Screen");
         }
     }
     public void SaveGems()
     {
         savedGems = gems;
+    }
+
+    public float getTime()
+    {
+        return Mathf.Round(time);
     }
 }
