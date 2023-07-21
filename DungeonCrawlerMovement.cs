@@ -52,12 +52,12 @@ public class DungeonCrawlerMovement : MonoBehaviour
         {
             Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
             Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
-            
-            for(int i = 0; i < numBullets; i++)
+
+            for (int i = 0; i < numBullets; i++)
             {
                 Vector2 direction = target - myPos + new Vector2(i, i);
                 direction.Normalize();
-                foreach(GameObject p in projectile)
+                foreach (GameObject p in projectile)
                 {
                     var b = Instantiate(p, myPos, Quaternion.identity);
                     b.GetComponent<Rigidbody2D>().velocity = (direction) * p.gameObject.GetComponent<ProjectileController>().getSpeed() * projectileSpeed;
@@ -70,16 +70,16 @@ public class DungeonCrawlerMovement : MonoBehaviour
             timer -= Time.deltaTime;
         }
 
-        
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Gem"))
         {
-            if (collision.CompareTag("Gem"))
-            {
-                GameManager.Instance.AddGems(1);
-                Destroy(collision.gameObject);
-            }
+            GameManager.Instance.AddGems(1);
+            Destroy(collision.gameObject);
         }
+    }
 
     public void increaseBullets()
     {
@@ -95,6 +95,6 @@ public class DungeonCrawlerMovement : MonoBehaviour
     }
     public void decreaseShootTime()
     {
-        shootTime -= .2f;
+        shootTime /= 1.05f;
     }
 }
