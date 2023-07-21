@@ -97,4 +97,8 @@ public class DungeonCrawlerMovement : MonoBehaviour
     {
         shootTime /= 1.05f;
     }
+    public void addProjectile(GameObject p)
+    {
+        projectile.Add(p);
+    }
 }
