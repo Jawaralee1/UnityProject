@@ -12,16 +12,30 @@ public class Spawner : MonoBehaviour
     public Transform SpawnPoint;
     private GameObject ChosenSpawn;
     private GameObject PickedEnemy;
-    private float timer = 10f;
+    private float timer = 3f;
 
 
     void Update()
     {
+        //if (EnemyCount < 5) { }
+        
+            if (timer < 0)
+            {
+                timer = 3f;
+                SelectEnemy();
+                EnemyCount++;
+                Instantiate(ChosenSpawn, SpawnPoint.transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
         
     }
     private void SelectEnemy()
     {
-        int SelectedEnemy = Random.Range(1, 3);
+        int SelectedEnemy = Random.Range(1, 4);
         
         if (SelectedEnemy == 1)
         {
@@ -35,28 +49,15 @@ public class Spawner : MonoBehaviour
         {
             PickedEnemy = Enemy3;
         }
-        GameObject ChosenSpawn = PickedEnemy;
-        Vector2 myPos = new Vector2(SpawnPoint.position.x, SpawnPoint.transform.position.y);
-        GameObject Spawned = Instantiate(ChosenSpawn, myPos, Quaternion.identity);
+        ChosenSpawn = PickedEnemy;
+        //Vector2 myPos = new Vector2(SpawnPoint.position.x, SpawnPoint.transform.position.y);
+        //GameObject Spawned = Instantiate(ChosenSpawn, myPos, Quaternion.identity);
     }
-    void Start()
+    void Awake()
     {
 
         EnemyCount = 0;
-        while (EnemyCount < 5)
-        {
-            if (timer  == 0)
-            {
-                timer = 10f;
-                SelectEnemy();
-                EnemyCount = EnemyCount + 1;
-                
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
-        }
+        timer = 3f;
 
     }
 
